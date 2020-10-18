@@ -6,3 +6,4 @@ export * from "./header/header.component";
 export * from "./sign-in/sign-in.component";
 export * from "./form-input/form-input.component";
 export * from "./custom-button/custom-button.component";
+export * from "./sign-up/sign-up.component";

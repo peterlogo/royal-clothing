@@ -1,5 +1,5 @@
 import React from "react";
-import { SignIn } from "../../components";
+import { SignIn, SignUp } from "../../components";
 import "./auth.styles.scss";
 
 export const AuthPage = () => {
@@ -7,6 +7,7 @@ export const AuthPage = () => {
     <div className="sign-in-and-sign-up">
       <h1>Sign In</h1>
       <SignIn />
+      <SignUp />
     </div>
   );
 };
