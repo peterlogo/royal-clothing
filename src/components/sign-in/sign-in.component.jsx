@@ -44,8 +44,12 @@ export class SignIn extends Component {
             onChange={this.handleChange}
             required
           />
-          <CustomButton type="submit">SIGN IN</CustomButton>
-          <CustomButton onClick={signInWithGoogle}>GOOGLE SIGN IN</CustomButton>
+          <div className="buttons">
+            <CustomButton type="submit">SIGN IN</CustomButton>
+            <CustomButton isGoogleSignIn={true} onClick={signInWithGoogle}>
+              GOOGLE SIGN IN
+            </CustomButton>
+          </div>
         </form>
       </div>
     );
