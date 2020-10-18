@@ -4,7 +4,7 @@ import "./App.css";
 import { AuthPage, HomePage, ShopPage } from "./pages";
 import { Switch, Route } from "react-router-dom";
 import { Header } from "./components";
-import { auth } from "./firebase";
+import { auth, createUserProfileDocument } from "./firebase";
 import { Component } from "react";
 
 class App extends Component {
@@ -20,9 +20,23 @@ class App extends Component {
   componentDidMount() {
     // listens for authentication.
     // this is an open subsrciption.
-    this.unSubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      this.setState({ currentUser: user });
-      console.log(user);
+    this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      // checks if a user object exists.
+      if (userAuth) {
+        // get the user reference object from firebase
+        const userRef = await createUserProfileDocument(userAuth);
+        // retrieve and save user object to state from
+        // firebase
+        userRef.onSnapshot((snapshot) => {
+          this.setState({
+            currentUser: {
+              id: snapshot.id,
+              ...snapshot.data(),
+            },
+          });
+        });
+      }
+      this.setState({ currentUser: userAuth });
     });
   }
 
