@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import "./header.styles.scss";
 import { ReactComponent as Logo } from "../../assests/crown.svg";
 import { auth } from "../../firebase";
+import { connect } from "react-redux";
 
-export const Header = ({ currentUser }) => {
+const Header = ({ currentUser }) => {
   return (
     <div className="header">
       <Link to="/">
@@ -30,3 +31,15 @@ export const Header = ({ currentUser }) => {
     </div>
   );
 };
+
+/**
+ * Gets the intitial state value from
+ * the reducer.
+ * @param {*} state
+ * @returns {object}
+ */
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(Header);
