@@ -15,9 +15,11 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
         hidden: !state.hidden,
       };
     case ADD_ITEM:
+      const currentItems = [...state.cartItems];
+      const updatedItems = [...currentItems, action.payload];
       return {
         ...state,
-        cartItems: [...state.cartItems, action.paylod],
+        cartItems: updatedItems,
       };
     default:
       return state;
