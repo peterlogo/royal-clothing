@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./header.styles.scss";
 import { ReactComponent as Logo } from "../../assests/crown.svg";
-import { ReactComponent as Cart } from "../../assests/shopping-bag.svg";
 import { auth } from "../../firebase";
 import { connect } from "react-redux";
+import CartIcon from "../cart-icon/cart-icon.component";
 
 const Header = ({ currentUser }) => {
   return (
@@ -28,9 +28,7 @@ const Header = ({ currentUser }) => {
             SIGN IN
           </Link>
         )}
-        <Link to="/">
-          <Cart />
-        </Link>
+        <CartIcon />
       </div>
     </div>
   );
