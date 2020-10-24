@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 //import axios from "axios";
-import { AuthPage, HomePage, ShopPage } from "./pages";
+import { AuthPage, HomePage } from "./pages";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Header from "./components/header/header.component";
 import { auth, createUserProfileDocument } from "./firebase";
@@ -11,6 +11,7 @@ import { setCurrentUser } from "./redux/user/user.actions";
 import { selectCurrentUser } from "./redux/user/user.selector";
 import { createStructuredSelector } from "reselect";
 import CheckoutPage from "./pages/checkout/checkout.component";
+import ShopPage from "./pages/shop/shop.component";
 
 class App extends Component {
   unSubscribeFromAuth = null;

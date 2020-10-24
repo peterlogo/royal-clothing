@@ -11,6 +11,7 @@ import { directoryReducer } from "./directory/directory.reducer";
 
 // get the storage property needed in redux-persist.
 import storage from "redux-persist/lib/storage";
+import { collectionReducer } from "./collection/collection.reducer";
 
 /**
  * Redux persist configuration
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
   directory: directoryReducer,
+  shop: collectionReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
