@@ -21,7 +21,15 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
   return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 };
 
+/**
+ * Utility function to remove an existing item from
+ * the cart as well as its quantiy.
+ * @param {object} cartItems
+ * @param {object} cartItemToRemove
+ * @returns {object}
+ */
 export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+  console.log(cartItemToRemove);
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.id === cartItemToRemove.id
   );

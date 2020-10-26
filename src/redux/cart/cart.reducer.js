@@ -1,6 +1,11 @@
 import { CartTypes } from "./cart.types";
 import { addItemToCart, removeItemFromCart } from "./cart.utils";
 
+/**
+ * Cart item initial state
+ * properties
+ * @object
+ */
 const INITIAL_STATE = {
   hidden: false,
   cartItems: [],
@@ -13,6 +18,12 @@ const {
   REMOVE_ITEM,
 } = CartTypes;
 
+/**
+ * Cart reducer handling the states of the cart
+ * and its items.
+ * @param {object} state
+ * @param {*} action
+ */
 export const cartReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TOGGLE_CART_HIDDEN:
@@ -30,6 +41,7 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
     case REMOVE_ITEM:
       const curr_Items = [...state.cartItems];
       const new_Items = removeItemFromCart(curr_Items, action.payload);
+      console.log(curr_Items, new_Items);
       return {
         ...state,
         currentItem: new_Items,
