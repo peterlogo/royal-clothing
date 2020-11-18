@@ -59,5 +59,55 @@ const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export { auth, storage, signInWithGoogle, createUserProfileDocument };
+/**
+ * Adds the shop data to Firebase firestore
+ * @param {string} collectionKey
+ * @param {object} objectToAdd
+ * @returns {void}
+ */
+const addCollectionAndDocuments = async (collectionKey, objectToAdd) => {
+  const collectionRef = storage.collection(collectionKey);
+  console.log(collectionRef);
+
+  const batch = storage.batch();
+  objectToAdd.forEach((obj) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  });
+
+  await batch.commit();
+};
+
+/**
+ * Converts the collections data from
+ * Firebase firestore to an object.
+ * @param {*} collections
+ * @returns {object}
+ */
+const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
+    const { title, items } = doc.data();
+    return {
+      routeName: encodeURI(title.toLowerCase()),
+      id: doc.id,
+      title,
+      items,
+    };
+  });
+
+  // returns an object from the array
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
+};
+
+export {
+  auth,
+  storage,
+  signInWithGoogle,
+  createUserProfileDocument,
+  addCollectionAndDocuments,
+  convertCollectionsSnapshotToMap,
+};
 export default firebase;
