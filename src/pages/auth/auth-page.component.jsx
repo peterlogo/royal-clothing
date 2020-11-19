@@ -1,5 +1,6 @@
 import React from "react";
-import { SignIn, SignUp } from "../../components";
+import { SignUp } from "../../components";
+import SignIn from "../../components/sign-in/sign-in.component";
 import "./auth.styles.scss";
 
 export const AuthPage = () => {

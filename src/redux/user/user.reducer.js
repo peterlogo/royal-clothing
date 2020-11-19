@@ -2,16 +2,23 @@ import { UserActionTypes } from "./user.types";
 
 const INITIAL_STATE = {
   currentUser: null,
+  error: null,
 };
 
-const { SET_CURRENT_USER } = UserActionTypes;
+const { SIGN_IN_SUCCESS, SIGN_IN_FAILURE } = UserActionTypes;
 
 export const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SET_CURRENT_USER:
+    case SIGN_IN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
+        error: null,
+      };
+    case SIGN_IN_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;

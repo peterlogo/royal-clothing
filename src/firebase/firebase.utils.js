@@ -22,14 +22,14 @@ const storage = firebase.firestore();
  * Google account authentication
  * set up.
  */
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 /**
  * Initialises the pop for google account
  * authentication.
  */
-const signInWithGoogle = () => auth.signInWithPopup(provider);
+const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 /**
  * Creates a user profile in the firebase
@@ -105,6 +105,7 @@ const convertCollectionsSnapshotToMap = (collections) => {
 export {
   auth,
   storage,
+  googleProvider,
   signInWithGoogle,
   createUserProfileDocument,
   addCollectionAndDocuments,
