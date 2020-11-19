@@ -102,10 +102,20 @@ const convertCollectionsSnapshotToMap = (collections) => {
   }, {});
 };
 
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
+
 export {
   auth,
   storage,
   googleProvider,
+  getCurrentUser,
   signInWithGoogle,
   createUserProfileDocument,
   addCollectionAndDocuments,

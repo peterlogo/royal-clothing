@@ -3,6 +3,7 @@ import { UserActionTypes } from "./user.types";
 import {
   auth,
   createUserProfileDocument,
+  getCurrentUser,
   googleProvider,
 } from "../../firebase/firebase.utils";
 import { signInSuccess, signInFailure } from "./user.actions";
@@ -35,14 +36,32 @@ export function* signInWithEmail({ payload: { email, password } }) {
   }
 }
 
+export function* isUserAuthenticated() {
+  try {
+    const userAuth = yield getCurrentUser();
+    if (!userAuth) return;
+    yield getSnapshotFromUserAuth(userAuth);
+  } catch (error) {
+    yield put(signInFailure(error.message));
+  }
+}
+
 export function* onGoogleSignInStart() {
   yield takeLatest(UserActionTypes.GOOGLE_SIGN_IN_START, signInWithGoogle);
 }
 
 export function* onEmailSignInStart() {
-  yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START);
+  yield takeLatest(UserActionTypes.EMAIL_SIGN_IN_START, signInWithEmail);
+}
+
+export function* onCheckUserSession() {
+  yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
 }
 
 export function* userSaga() {
-  yield all([call(onGoogleSignInStart)]);
+  yield all([
+    call(onGoogleSignInStart),
+    call(onEmailSignInStart),
+    call(onCheckUserSession),
+  ]);
 }
